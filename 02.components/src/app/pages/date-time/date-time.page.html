@@ -1,0 +1,36 @@
+<app-header class="ion-text-capitalize" title = "calendar"></app-header>
+
+<ion-content>
+
+  <ion-list>
+
+    <ion-list-header>
+      <ion-label>Datos de Nacimiento</ion-label>
+    </ion-list-header>
+
+    <ion-item>
+      <ion-label>Fecha de Nacimiento</ion-label>
+        <ion-datetime  [value] = "fechaNaci.toISOString()" displya-format="YYYY MM DD" (ionChange)= "cambiarFecha( $event)"></ion-datetime>
+    </ion-item>
+
+    <ion-list-header>
+      <ion-label>Restricciones</ion-label>
+    </ion-list-header>
+
+    <ion-item>
+      <ion-label>Min y Max</ion-label>
+        <ion-datetime  displya-format = "YYYY MM DD"
+                        min = "2019-01-01"
+                        max = "2022-12-31"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Anos</ion-label>
+        <ion-datetime  displya-format = "YYYY"
+                        min = "2019"
+                        max = "2022"></ion-datetime>
+    </ion-item>
+    
+  </ion-list>
+
+</ion-content>
