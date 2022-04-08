@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ResponseMDB, MovieDetail, ResponseCredits } from '../interfaces/interfaces';
+import { ResponseMDB, MovieDetail, ResponseCredits, Genre } from '../interfaces/interfaces';
 import { environment } from 'src/environments/environment';
 
 const url:string = environment.url;
@@ -12,6 +12,7 @@ const apiKey: string =  environment.apiKey;
 export class MoviesService {
 
   private popularsPage = 0;
+  genres:Genre[] = [];;
   
   constructor( private htt: HttpClient) { }
 
@@ -46,5 +47,21 @@ export class MoviesService {
   
   getActor( id: string){
     return this.htt.get<ResponseCredits>(`${url}/movie/${id}/credits?api_key=${apiKey}&language=es&include_image_language=es&page=${this.popularsPage}`);
+  }
+
+  serachMovie(query:string){
+    return this.htt.get(`${url}/search/movie?api_key=${apiKey}&query=${query}&languaje=es`);
+  }
+
+  uploadGenre(): Promise<Genre[]>{
+    return new Promise(resolve=>{
+      this.htt.get(`${url}/genre/movie/list?api_key=${apiKey}&language=es&include_image_language=es`).subscribe(res=>{
+        this.genres = res['genres'];
+        console.log(this.genres);
+        resolve(this.genres)
+      });
+    });
+
+   
   }
 }
